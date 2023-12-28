@@ -23,4 +23,12 @@ public class OrderItem {
 
     private int orderPrice;
     private int count;
+
+
+    /**
+     * 비즈니스 로직 주문취소 상품들
+     */
+    public void cancel() {
+        getItem().addStock(count);
+    }
 }
