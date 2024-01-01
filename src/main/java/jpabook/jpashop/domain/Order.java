@@ -42,7 +42,7 @@ public class Order {
      */
 
     public void setMember(Member member){
-        member.getOrders().add(this);
+        member.getOrders().add(this); 
     }
     public void addOrderItem(OrderItem orderItem){
         orderItems.add(orderItem);
