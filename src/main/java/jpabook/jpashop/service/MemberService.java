@@ -1,13 +1,13 @@
 package jpabook.jpashop.service;
 
 
-
-import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.entity.Member;
 import jpabook.jpashop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
+
+import java.util.HashMap;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,45 +16,12 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-
-    /**
-     * 회원가입 처리
-     * @param member
-     * @return Long
-     */
     @Transactional
-    public Long join(Member member){
-        validateDuplicateMember(member); // 중복 회원 검증 비즈니스 로직.
+    public void join(HashMap<String,Object> map){
+        Member member = new Member();
+        member.setName((String) map.get("name"));
+        member.setPassword((String) map.get("password"));
         memberRepository.save(member);
-        return member.getId();
     }
 
-    /**
-     * 중복 회원 처리
-     * @param member
-     */
-    private void validateDuplicateMember(Member member) {
-        //EXCEPTION
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if(!findMembers.isEmpty()){
-            throw new IllegalStateException("이미 존재하는 회원입니다");
-        }
-    }
-
-    /**
-     * 회원 전체 처리
-     * @return List<Member>
-     */
-    public List<Member> findMembers(){
-        return memberRepository.findAll();
-    }
-
-    /**
-     * 회원 한건 조회
-     * @param memberId
-     * @return Member
-     */
-    public Member findOne(Long memberId){
-        return memberRepository.findOne(memberId);
-    }
 }

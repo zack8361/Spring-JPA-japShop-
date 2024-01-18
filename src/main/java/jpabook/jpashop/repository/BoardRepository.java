@@ -2,18 +2,21 @@ package jpabook.jpashop.repository;
 
 
 import jakarta.persistence.EntityManager;
-import jpabook.jpashop.entity.Member;
+import jpabook.jpashop.entity.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
-public class MemberRepository {
+public class BoardRepository {
 
     private final EntityManager em;
 
-    public void save(Member member){
-        em.persist(member);
+
+    public List<Board> showAll() {
+        return em.createQuery("SELECT b from Board b", Board.class)
+                .getResultList();
     }
-    
 }

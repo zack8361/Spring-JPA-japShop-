@@ -1,10 +1,9 @@
-package jpabook.jpashop.domain;
+package jpabook.jpashop.entity;
 
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +11,19 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Member {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
 
+    private String password;
+
     private String name;
 
-    @Embedded
-    private Address address;
+    @OneToMany(mappedBy = "member")
+    private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 }
