@@ -46,14 +46,24 @@ public class BoardController {
         return "hello";
     }
 
-    @PostMapping("postBoard")
+    @PostMapping("/postBoard")
     public String postBoard(){
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("memberId",1);
-        map.put("postDate", LocalDateTime.now());
-        map.put("content","하이 하이 하이 하이 하이 게시판");
-        map.put("title","제목은 조제");
+        boardService.createBoard();
+        return "hello";
+    }
 
-        boardService.
+    @PostMapping("/postComment")
+    public String postComment(){
+        boardService.createComment();
+
+        return "hello";
+    }
+
+
+    @GetMapping("/readComment")
+    public String readComment(){
+        boardService.readComment();
+
+        return "hello";
     }
 }
